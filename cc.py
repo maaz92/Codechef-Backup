@@ -90,7 +90,11 @@ if __name__=="__main__":
     br["pass"] = password
     br.form.action = "http://www.codechef.com"
     response = br.submit()
-    
+   
+    verify = response.read()
+    if (verify.find("Authentication failed!") != -1):
+        print "Error authenticating - " + username
+        exit(0)
     # grab the signed submissions list
     print "Grabbing siglist for " + username
     br.open("http://www.codechef.com/users/" + username)
